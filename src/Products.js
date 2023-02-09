@@ -11,7 +11,6 @@ export default class Products extends Component{
   render(){ 
     return (
    
-      <div className='row-wrapper'>
         <Row>
             <Col md={4}  >
            {data.map((product,i) => (
@@ -19,7 +18,6 @@ export default class Products extends Component{
           ))}  
             </Col>
         </Row>
-      </div>
     ) 
           }
 
