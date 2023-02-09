@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{Component} from 'react';
 
 import Row from 'react-bootstrap/Row';
 import data from '../src/products.json'
@@ -6,10 +6,10 @@ import Col from 'react-bootstrap/Col';
 import Product  from '../src/Product';
 
 
+export default class Products extends Component{
 
-const Products = () => {
-
-  return (
+  render(){ 
+    return (
    
       <div className='row-wrapper'>
         <Row>
@@ -21,7 +21,6 @@ const Products = () => {
         </Row>
       </div>
     ) 
-  
-};
+          }
 
-export default Products;
+}         
