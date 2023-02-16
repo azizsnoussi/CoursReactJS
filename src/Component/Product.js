@@ -28,7 +28,7 @@ export default class Product extends Component {
 
     return (
         <>
-        <Card className="p-2">
+        <Card className="p-2" >
 
             <Card.Img style={{height:'20rem'}} variant="top" src={require('../assets/images/'+this.props?.product.img)} />
             <Card.Title>{this.props?.product.name}</Card.Title>
