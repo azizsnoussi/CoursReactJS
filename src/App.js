@@ -1,6 +1,5 @@
-import logo from './logo.svg';
 import './App.css';
-import Products from './Products'
+import Products from './Component/Products'
 
 
 function App() {
