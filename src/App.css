@@ -1,5 +1,15 @@
 @import 'bootstrap/dist/css/bootstrap.min.css';
 
+
+.BestSeller{
+  background-color: #f30c68;
+  animation: clignote 2s linear infinite;
+}
+
+@keyframes clignote {
+  50% {opacity: 0.5;}
+}
+
 .App {
   text-align: center;
 }

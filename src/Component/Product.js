@@ -1,47 +1,69 @@
 import { Component } from "react";
-import { Alert, Button, Card, Col, Row } from "react-bootstrap";
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+import { Alert } from "react-bootstrap";
+import { useState } from "react";
 
-export default class Product extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {product:this.props?.product,alertVisible:false};
-        this.addLike = this.addLike.bind(this);
-        this.removeQuantity = this.removeQuantity.bind(this);
-        this.handleVisible = this.handleVisible.bind(this);
-    }
-    addLike() {
+function Product (props){
+   const [product,setProduct] = useState(props.product);
+const className=product.like>5?"text-center BestSeller":"text-center"
+   const  addLike = ()=>{
+    setProduct({...product,like:product.like +1});
+   }
 
-        this.setState((oldState)=>({product:{...oldState.product,like:oldState.product.like+1}}));
-    }
-    removeQuantity() {
-        this.setState((oldState)=>({product:{...oldState.product,quantity:oldState.product.quantity-1}}));
-        this.handleVisible();
-    }
-     handleVisible = () => { 
-        this.setState({alertVisible:true})
-        setTimeout(() => { 
-            this.setState({alertVisible:false})
-        }, 2000);
-    } 
+   const buyProducts = ()=>{
+    setProduct({...product,quantity:product.quantity-1});
+   }
+    // constructor(props){
+    //     super(props);
+    //     this.state =  {like : this.props.product.like,quantity:this.props.product.quantity, alertVisible:false};
+    //     this.addLikes = this.addLikes.bind(this);
+    //     this.buyProducts = this.buyProducts.bind(this);
+    //     this.handleVisible = this.handleVisible.bind(this);
+    // }
 
-  render() {
+    // addLikes(){
+    //     this.setState((oldState)=>({
+    //         like : oldState.like +1
+    //     }));
+    // }
 
-    return (
-        <>
-        <Card className="p-2" >
+    // buyProducts (){
+    //     this.setState((oldState)=>({
+    //         quantity:oldState.quantity-1
+    //     }));
+    //     this.handleVisible()
+    // }   
 
-            <Card.Img style={{height:'20rem'}} variant="top" src={require('../assets/images/'+this.props?.product.img)} />
-            <Card.Title>{this.props?.product.name}</Card.Title>
-            <Card.Body>{this.props?.product.description}</Card.Body>
-            <Card.Body>{this.props?.product.price}DT</Card.Body>
-            <Row><Col><Button variant="primary" onClick={this.addLike}>Like👍</Button></Col> <Col><small>{this.state?.product.like}</small></Col></Row>
-            <br/>
-            <Row><Col><Button variant="danger" onClick={this.removeQuantity} disabled={this.state?.product.quantity===0}>Buy💲🤑</Button></Col><Col> <small>{this.state?.product.quantity}</small></Col></Row>
+    // handleVisible = () => { 
+    //     this.setState({alertVisible:true})
+    //     setTimeout(() => { 
+    //         this.setState({alertVisible:false})
+    //     }, 2000);
+    // } 
 
-            </Card>
-              <Alert variant="primary" show={this.state?.alertVisible}  >You bought an Item</Alert>
-              </>
+    // render(){
 
-    )
-  }
+        return (<>
+            <Card style={{ width: '25rem' , minHeight:'650px',display:'flex',padding:'20px'}} className={className}>
+            <Card.Img variant="top" src={require('../assets/images/'+product.img)} />
+            <Card.Body>
+              <Card.Title>{product.name}</Card.Title>
+              <Card.Text>
+                {product.description}
+              </Card.Text>
+              <Card.Text>
+                {product.price} DT
+              </Card.Text>
+              <div style={{display:'flex',justifyContent:'center',alignItems:'center'}}>
+              <Button variant="primary" onClick={addLike} style={{margin :'15px'}} >Like</Button> <small style={{marginRight:'25px'}}>{product.like} Likes</small>
+              {/* <Button variant="primary" onClick={this.buyProducts} disabled={this.state.quantity === 0} style={{margin :'15px'}}>Buy</Button> <small>{this.state.quantity} Products</small> */}
+              </div>
+            </Card.Body>
+            {/* <Alert variant="primary" show={this.state?.alertVisible}  >you bought an Item !!!!</Alert>     */}
+          </Card>
+          </>
+        );
+    // }
 }
+export default Product;
