@@ -1,19 +1,20 @@
-import { Component } from "react";
+
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import { Alert } from "react-bootstrap";
+import Row from 'react-bootstrap/Row';
+import {Link} from 'react-router-dom';
 import { useState } from "react";
 
-function Product (props){
-   const [product,setProduct] = useState(props.product);
+function Product ({prod}){
+   const [product,setProduct] = useState(prod);
 const className=product.like>5?"text-center BestSeller":"text-center"
    const  addLike = ()=>{
     setProduct({...product,like:product.like +1});
    }
 
-   const buyProducts = ()=>{
-    setProduct({...product,quantity:product.quantity-1});
-   }
+   //const buyProducts = ()=>{
+   // setProduct({...product,quantity:product.quantity-1});
+   //}
     // constructor(props){
     //     super(props);
     //     this.state =  {like : this.props.product.like,quantity:this.props.product.quantity, alertVisible:false};
@@ -45,10 +46,11 @@ const className=product.like>5?"text-center BestSeller":"text-center"
     // render(){
 
         return (<>
+         <Row>
             <Card style={{ width: '25rem' , minHeight:'650px',display:'flex',padding:'20px'}} className={className}>
             <Card.Img variant="top" src={require('../assets/images/'+product.img)} />
             <Card.Body>
-              <Card.Title>{product.name}</Card.Title>
+            <Link  to={`/products/${product.id}`} replace={true} ><Card.Title>{product.name}</Card.Title> </Link>
               <Card.Text>
                 {product.description}
               </Card.Text>
@@ -62,6 +64,7 @@ const className=product.like>5?"text-center BestSeller":"text-center"
             </Card.Body>
             {/* <Alert variant="primary" show={this.state?.alertVisible}  >you bought an Item !!!!</Alert>     */}
           </Card>
+          </Row>
           </>
         );
     // }

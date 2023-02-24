@@ -1,32 +1,26 @@
-import { useState } from 'react';
-import { NavLink } from 'react-bootstrap';
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import Products from './Products';
+import {Navbar} from 'react-bootstrap';
+import { NavLink } from 'react-router-dom';
+
 function NavigationBar() {
 
   return (
 
- 
-        
+    <Navbar>
+            <NavLink 
+                to="home" 
+                style={({ isActive }) => ({color:isActive? "gray": "black"})}
+            >
+                MyStore
+            </NavLink>
+            &nbsp;
+            <NavLink 
+                to="products"
+                style={({ isActive }) => ({color:isActive? "gray": "black"})}
 
-    <Navbar bg="light" variant="light">
-
-    <Container>
-    
-    <Navbar.Brand to="/products">MyStore</Navbar.Brand>
-    
-    <Nav className="me-auto">
-    
-    <Nav.Link to="/products" >Products</Nav.Link>
-    
-    </Nav>
-    
-    </Container>
-    
-    </Navbar>
+            >
+                Products
+            </NavLink>
+        </Navbar>
     
   );
 }
