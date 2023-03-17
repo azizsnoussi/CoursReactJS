@@ -1,38 +1,51 @@
+import { lazy, Suspense } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import {Route,Routes} from 'react-router-dom';
-import React,{ Suspense,useState }  from 'react';
-import {data }from "./products"
-import NavigationBar from './Component/NavigationBar';
-const Products = React.lazy( () => import('./Component/Products'));
-const ProductDetails =  React.lazy( () => import('./Component/ProductDetails'));
-const NotFound  = React.lazy( () => import('./Component/NotFound'));
+import {Cart} from './Components/Cart';
+import CustomNavbar from './Components/CustomNavbar';
+import ReduxComponent from './Redux/ReduxComponent';
+import ReduxToolkitComponent from './ReduxToolkit/ReduxComponent';
 
 
+const Home = lazy(()=>import('./Components/Home'));
+const UpdateProduct = lazy(()=>import('./Components/UpdateProduct'));
+
+const ProductDetails = lazy(()=>import('./Components/ProductDetails'));
+const AddProduct = lazy(()=>import('./Components/addProduct'));
+const Products = lazy(()=>import('./Components/Products'));
+const ProductLayout = lazy(()=>import('./Components/ProductLayout'));
+const NotFound = lazy(()=>import('./Components/NotFound'));
 
 
 function App() {
  
-  const [product, setProduct] = useState(data);
-  
   return (
+    // <Fragement>
     <>
-    
-      <Suspense fallback={<p>Chargement...</p>}>
-      <NavigationBar/>
-        <Routes>
-        <Route path="/"  >
-            <Route index element={<Products product={product}  />} />
-            <Route path=":id" element={<ProductDetails  product={product} />} />
-          </Route>
-          <Route path="/products"  >
-            <Route index element={<Products product={product}  />} />
-            <Route path=":id" element={<ProductDetails  product={product} />} />
-          </Route>
-          <Route path="*" element={<NotFound/>} />
-        </Routes>
-      </Suspense>
+  
+    {/* <Products/> */}
+    <Suspense fallback={<h1>Loaading ....</h1>}>
+    <CustomNavbar/>
+    <Routes>
+      <Route path="*" element={<NotFound/>}/>
+      <Route path="/" element={<h1>Home</h1>}/>
+      <Route path="/redux" element={<ReduxComponent/>}/>
+      <Route path="/reduxtoolkit" element={<ReduxToolkitComponent/>}/> 
+
+
+      <Route path="/home/:username" element={<Home/>}/> 
+      <Route path="/products" element={<ProductLayout />}>
+          <Route path="list" element={<Products />}/>
+          <Route path="add" element={<AddProduct/>}/>
+      <Route path='update/:id' element={<UpdateProduct />}/>
+
+          <Route path=":id" element={<ProductDetails/>}/>
+      </Route>
+      <Route path="/cart" element={<Cart/>}></Route>
+    </Routes>
+    </Suspense>
     </>
-    
+    // </Fragement>
   );
 }
 
